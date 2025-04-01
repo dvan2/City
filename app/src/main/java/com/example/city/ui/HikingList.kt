@@ -24,19 +24,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.example.city.data.model.Category
 import com.example.city.data.model.Place
-
-
 
 @Composable
 fun PlaceListCard(place: Place, onClick: ()-> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth()
+            .fillMaxWidth()
             .padding(8.dp)
             .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = place.name, style = MaterialTheme.typography.titleMedium)
@@ -63,7 +60,7 @@ fun PlaceDetailScreen(placeId: String, viewModel: PlaceViewModel= viewModel()) {
                 contentDescription = place.name,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
+                    .height(500.dp),
                 contentScale = ContentScale.Crop
             )
 

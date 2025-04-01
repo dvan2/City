@@ -1,8 +1,12 @@
 package com.example.city.data.model
 
 
-enum class Category {
+enum class Category{
     HIKING, FOOD, SOCCER
+}
+
+enum class CityScreen{
+    HIKING, SOCCER, FOOD, DETAIL
 }
 
 data class Place(
