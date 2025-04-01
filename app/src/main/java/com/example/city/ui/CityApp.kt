@@ -57,13 +57,19 @@ fun CityNavGraph(navController: NavHostController) {
         startDestination = BottomNavItem.Hiking.route
     ) {
         composable(BottomNavItem.Hiking.route) {
-            HikingScreen()
+            HikingScreen(navController)
         }
         composable(BottomNavItem.Food.route) {
             FoodScreen()
         }
         composable(BottomNavItem.Soccer.route) {
             SoccerScreen()
+        }
+        composable("placeDetail/{placeId}") { navBackStackEntry ->
+            val placeId = navBackStackEntry.arguments?.getString("placeId")
+            if (placeId != null) {
+                PlaceDetailScreen(placeId)
+            }
         }
     }
 }
@@ -79,12 +85,14 @@ fun FoodScreen() {
 }
 
 @Composable
-fun HikingScreen(viewModel: PlaceViewModel = viewModel()) {
+fun HikingScreen(navController: NavController, viewModel: PlaceViewModel = viewModel()) {
     val hikingPlaces = viewModel.getPlacesByCategory(Category.HIKING)
 
     LazyColumn {
         items(hikingPlaces) { place ->
-            PlaceCard(place)
+            PlaceListCard(place) {
+               navController.navigate("placeDetail/${place.id}")
+            }
         }
     }
 }
