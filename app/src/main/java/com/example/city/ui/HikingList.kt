@@ -48,9 +48,10 @@ fun PlaceDetailScreen(placeId: String, viewModel: PlaceViewModel= viewModel()) {
 
     place?.let {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Load full image from assets
+            // Load image from asset and user cache
             val context = LocalContext.current
             val bitmap = remember(place.image) {
+                // read image and transform it into bitmap
                 val inputStream = context.assets.open(place.image)
                 BitmapFactory.decodeStream(inputStream).asImageBitmap()
             }
