@@ -8,12 +8,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.city.data.model.Place
@@ -43,21 +43,12 @@ fun PlaceListCard(place: Place, onClick: ()-> Unit) {
 
 @Composable
 fun PlaceDetailScreen(placeId: String, viewModel: PlaceViewModel= viewModel()) {
-    val places by viewModel.places.collectAsState()
-    val place = places.find { it.id == placeId }
+    val place = viewModel.getPlaceById(placeId)
 
     place?.let {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Load image from asset and user cache
-            val context = LocalContext.current
-            val bitmap = remember(place.image) {
-                // read image and transform it into bitmap
-                val inputStream = context.assets.open(place.image)
-                BitmapFactory.decodeStream(inputStream).asImageBitmap()
-            }
-
             Image(
-                bitmap = bitmap,
+                painter = painterResource(id = place.image),
                 contentDescription = place.name,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -70,5 +61,5 @@ fun PlaceDetailScreen(placeId: String, viewModel: PlaceViewModel= viewModel()) {
             Spacer(Modifier.height(4.dp))
             Text(text = place.description)
         }
-    }
+    } ?: Text("Place not found")
 }

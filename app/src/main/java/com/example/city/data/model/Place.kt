@@ -1,5 +1,7 @@
 package com.example.city.data.model
 
+import androidx.annotation.DrawableRes
+
 
 enum class Category{
     HIKING, FOOD, SOCCER
@@ -13,6 +15,6 @@ data class Place(
     val id: String,
     val name: String,
     val description: String,
-    val image: String,
+    @DrawableRes val image: Int,
     val category: Category
 )
