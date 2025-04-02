@@ -22,8 +22,10 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.city.R
 import com.example.city.data.model.Place
 
 @Composable
@@ -59,7 +61,7 @@ fun PlaceDetailScreen(placeId: String, viewModel: PlaceViewModel= viewModel()) {
             Spacer(Modifier.height(8.dp))
             Text(text = place.name, style = MaterialTheme.typography.headlineMedium)
             Spacer(Modifier.height(4.dp))
-            Text(text = place.description)
+            Text(text = stringResource(id = place.description))
         }
     } ?: Text("Place not found")
 }

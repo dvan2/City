@@ -7,7 +7,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Fastfood
+import androidx.compose.material.icons.filled.Hiking
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Restaurant
+import androidx.compose.material.icons.filled.SportsSoccer
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -46,9 +50,9 @@ fun CityApp(viewModel: PlaceViewModel = viewModel()) {
         Box(modifier = Modifier.padding(innerPadding)) {
             when (currentScreen) {
                 // Reference showPlaceDetail for the onclick of viewModel using function reference
-                CityScreen.HIKING -> HikingScreen(viewModel::showPlaceDetail)
-                CityScreen.SOCCER -> SoccerScreen()
-                CityScreen.FOOD -> FoodScreen()
+                CityScreen.HIKING -> CategoryScreen(Category.HIKING, viewModel::showPlaceDetail)
+                CityScreen.SOCCER -> CategoryScreen(Category.SOCCER, viewModel::showPlaceDetail)
+                CityScreen.FOOD -> CategoryScreen(Category.FOOD, viewModel::showPlaceDetail)
                 CityScreen.DETAIL -> selectedPlaceId?.let {
                     PlaceDetailScreen(it)
                 }
@@ -58,21 +62,15 @@ fun CityApp(viewModel: PlaceViewModel = viewModel()) {
 }
 
 @Composable
-fun SoccerScreen() {
-    Text("Soccer")
-}
-
-@Composable
-fun FoodScreen() {
-    Text("Food Screen")
-}
-
-@Composable
-fun HikingScreen(onPlaceClick: (String) -> Unit, viewModel: PlaceViewModel = viewModel()) {
-    val hikingPlaces = viewModel.getPlacesByCategory(Category.HIKING)
+fun CategoryScreen(
+    category: Category,
+    onPlaceClick: (String) -> Unit,
+    viewModel: PlaceViewModel = viewModel()
+) {
+    val places = viewModel.getPlacesByCategory(category)
 
     LazyColumn {
-        items(hikingPlaces) { place ->
+        items(places) { place ->
             PlaceListCard(place = place, onClick = { onPlaceClick(place.id)})
         }
     }
@@ -92,9 +90,9 @@ fun CityBottomBar(
     NavigationBar {
         bottomNavItems.forEach { screen->
             val icon = when (screen) {
-                CityScreen.HIKING -> Icons.Default.Info
-                CityScreen.SOCCER -> Icons.Default.Info
-                CityScreen.FOOD -> Icons.Default.Info
+                CityScreen.HIKING -> Icons.Default.Hiking
+                CityScreen.SOCCER -> Icons.Default.SportsSoccer
+                CityScreen.FOOD -> Icons.Default.Restaurant
                 else -> Icons.Default.Info
             }
 

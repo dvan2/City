@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">City</string>
+    <string name="eagle_creek_des">Eagle Creek is a scenic hiking trail located in the Columbia River Gorge. It offers lush forests, waterfalls, and breathtaking views.</string>
+    <string name="multnomah_falls_desc">A popular scenic waterfall hike along the Columbia River Gorge.</string>
+    <string name="silver_falls_desc">A loop hike with 10 stunning waterfalls in Oregon.</string>
+    <string name="forest_park_desc">Urban escape with miles of wooded trails and wildlife.</string>
 </resources>
